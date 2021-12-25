@@ -119,11 +119,7 @@ function drawGrid(poly: any) {
     const { min } = line;
     const { max } = line;
 
-    const start = new Cfx.Vector3(min.x, min.y, maxZ);
-    const end = new Cfx.Vector3(max.x, max.y, maxZ);
-    const color = new Cfx.Color(defaultColorGrid[0], defaultColorGrid[1], defaultColorGrid[2], 196);
-
-    Cfx.World.drawLine(start, end, color);
+    DrawLine(min.x + 0.0, min.y + 0.0, maxZ, max.x + 0.0, max.y + 0.0, maxZ + 0.0, defaultColorGrid[0], defaultColorGrid[1], defaultColorGrid[2], 196);
   }
 }
 
