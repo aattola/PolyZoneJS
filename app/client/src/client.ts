@@ -32,4 +32,8 @@ const zone = new PolyZone({
 //   console.log(zone.isPointInside(pos));
 // }, 5000);
 
+// zone.onPlayerInOut((isCurrInside, pedPos) => {
+//   console.log(isCurrInside);
+// }, 500);
+
 // console.log(zone, 'Online');

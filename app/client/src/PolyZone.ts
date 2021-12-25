@@ -1,10 +1,12 @@
 import * as Cfx from 'fivem-js';
 
 const eventPrefix = '_PolyZoneJS_:';
-
 const defaultColorWalls = [0, 255, 0];
 const defaultColorOutline = [255, 0, 0];
 const defaultColorGrid = [255, 255, 255];
+
+// eslint-disable-next-line no-promise-executor-return
+const Delay = (ms: number) => new Promise((res) => setTimeout(res, ms));
 
 type Vector2 = { x:number, y:number }
 type Vector3 = { x:number, y:number, z:number }
@@ -491,6 +493,22 @@ class PolyZone {
     if (this.options.debugGrid) {
       console.log(`[PolyZoneJS] Debug: Destroying zone ${this.options.name}`);
     }
+  }
+
+  public onPlayerInOut(onPointInOutCb: (isCurrInside: boolean, pedPos: Cfx.Vector3) => void, waitInMS = 500) {
+    let isInside = false;
+
+    setTick(async () => {
+      await Delay(waitInMS);
+      if (!this.destroyed) {
+        const pos = Cfx.Game.PlayerPed.Position;
+        const currInside = this.isPointInside(pos);
+        if (currInside !== isInside) {
+          onPointInOutCb(currInside, pos);
+          isInside = currInside;
+        }
+      }
+    });
   }
 }
 
