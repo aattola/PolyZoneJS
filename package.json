@@ -1,0 +1,10 @@
+{
+  "private": true,
+  "workspaces": [
+    "app"
+  ],
+  "scripts": {
+    "build": "cd app && yarn build",
+    "watch:app": "cd app && yarn watch"
+  }
+}
