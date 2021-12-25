@@ -61,7 +61,7 @@ const client = {
         }),
     ],
     optimization: {
-        minimize: true,
+        minimize: false,
     },
     resolve: {
         extensions: [".ts", ".js"],

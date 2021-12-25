@@ -1,10 +1,30 @@
 {
-  "private": true,
-  "workspaces": [
-    "app"
-  ],
+  "name": "@app/app",
+  "version": "1.0.0",
   "scripts": {
-    "build": "cd app && yarn build",
-    "watch:app": "cd app && yarn watch"
+    "build": "cd app && webpack --mode development --color --progress",
+    "watch": "cd app && webpack --mode development --watch"
+  },
+  "peerDependencies": {
+    "webpack-cli": "^4.9.1"
+  },
+  "dependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.8.0",
+    "fivem-js": "^1.5.2",
+    "typescript": "^4.5.4"
+  },
+  "devDependencies": {
+    "@citizenfx/client": "^2.0.5132-1",
+    "@citizenfx/server": "^2.0.5132-1",
+    "@types/node": "^16.9.1",
+    "@typescript-eslint/parser": "^5.8.0",
+    "eslint": "^8.5.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-import-resolver-typescript": "^2.5.0",
+    "eslint-plugin-import": "^2.25.3",
+    "remove-files-webpack-plugin": "^1.5.0",
+    "ts-loader": "^9.2.6",
+    "webpack": "^5.65.0",
+    "webpack-cli": "^4.8.0"
   }
 }
