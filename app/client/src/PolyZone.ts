@@ -10,7 +10,6 @@ const Delay = (ms: number) => new Promise((res) => setTimeout(res, ms));
 
 type Vector2 = { x:number, y:number }
 type Vector3 = { x:number, y:number, z:number }
-type Poly = any
 
 function toVector2(x:number, y:number): Vector2 {
   return { x, y };
@@ -50,7 +49,7 @@ function wnInnerLoop(p0: Vector2, p1: Vector2, p2: Vector2, wn: number) {
   return wn;
 }
 
-function windingNumber(point: Vector2, poly: Poly) {
+function windingNumber(point: Vector2, poly: any) {
   let wn = 0;
 
   for (let i = 0; i < poly.length - 1; i++) {
@@ -292,9 +291,6 @@ class PolyZone {
   constructor(zone: PolyZoneOptions) {
     this.points = zone.points;
     this.options = zone.options;
-
-    const poly = this.create(this.points, this.options);
-    this.initDebug(poly, this.options);
   }
 
   private initDebug(poly: any, options: any) {
@@ -411,8 +407,11 @@ class PolyZone {
     this.poly = poly;
   }
 
-  private create(points: PolyZoneOptions['points'], options: PolyZoneOptions['options']) {
-    if (!points[0]) return console.log('[PolyZoneJS] Error: No points supplied to create');
+  public create(additionalOptions: Record<string, any> = {}) {
+    const { points, options } = this;
+    if (!points[0]) {
+      throw new Error('[PolyZoneJS] Error: No points supplied to create');
+    }
     if (points.length < 3) console.log('[PolyZoneJS] Warning: Less than 3 points supplied to create');
 
     const poly = {
@@ -434,6 +433,7 @@ class PolyZone {
       debugGrid: options.debugGrid || false,
       data: options.data || {},
       isPolyZone: true,
+      ...additionalOptions,
     };
 
     if (poly.debugGrid) {
@@ -442,7 +442,9 @@ class PolyZone {
 
     this.calculatePoly(poly, options);
     this.poly = poly;
-    return poly;
+
+    this.initDebug(poly, this.options);
+    return this;
   }
 
   public isPointInside(point: Vector3): boolean {
@@ -461,8 +463,8 @@ class PolyZone {
     const [r, g, b] = defaultColorOutline;
     const [wR, wG, wB] = defaultColorWalls;
     const pedPos = Cfx.Game.PlayerPed.Position;
-    const minZ = pedPos.z - drawDist;
-    const maxZ = pedPos.z + drawDist;
+    const minZ = this.options.minZ || pedPos.z - drawDist;
+    const maxZ = this.options.maxZ || pedPos.z + drawDist;
 
     const { points } = this;
     for (let i = 0; i < points.length - 1; i++) {
