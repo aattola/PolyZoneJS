@@ -153,15 +153,19 @@ function isGridCellInsidePoly(cellX: number, cellY: number, poly: any) {
 
       if (poly.lines) {
         if (!poly.gridXPoints[x]) {
-          poly.gridXPoints[x] = [];
+          poly.gridXPoints[x] = {
+            [y]: true,
+          };
         }
 
         if (!poly.gridYPoints[y]) {
-          poly.gridYPoints[y] = [];
+          poly.gridYPoints[y] = {
+            [x]: true,
+          };
         }
 
-        poly.gridXPoints[x][y] = true;
-        poly.gridYPoints[y][x] = true;
+      // poly.gridXPoints[x][y] = true;
+      // poly.gridYPoints[y][x] = true;
       }
     }
   }
@@ -230,10 +234,29 @@ function pointInPoly(point: Vector3, poly: any) {
 }
 
 function calculateLinesForDrawingGrid(poly: any) {
-  const lines = [];
+  // console.log(poly, 'polyy');
+  console.log(poly.gridXPoints, 'gridXPoints');
+  const lines = {};
   // TODO: this
 
-  console.log('calculateLinesForDrawingGrid IS NOT DONE');
+  // eslint-disable-next-line guard-for-in,no-restricted-syntax
+  for (const x in poly.gridXPoints) {
+    const gridXPoint = poly.gridXPoints[x];
+    const yValues: any[] = [];
+
+    // eslint-disable-next-line guard-for-in,no-restricted-syntax
+    for (const gridXPointKey in gridXPoint) {
+      yValues[yValues.length] = gridXPointKey;
+    }
+
+    // if (yValues.length >= 2) {
+    //
+    // }
+
+    // console.log(yValues);
+  }
+
+  // console.log('calculateLinesForDrawingGrid IS NOT DONE');
 }
 
 interface PolyZoneOptions {
@@ -348,6 +371,8 @@ class PolyZone {
     this.poly = poly;
 
     if (options.debugGrid) {
+      poly.lines = calculateLinesForDrawingGrid(this.poly);
+      this.poly = poly;
       console.log(`[PolyZoneJS] Debug: Grid Coverage at ${poly.gridCoverage * 100}% with ${poly.gridDivisions} divisions. Optimal coverage for memory usage and startup time is 80-90%`);
     }
   }
@@ -384,9 +409,9 @@ class PolyZone {
 
     if (poly.useGrid && !poly.lazyGrid) {
       if (options.debugGrid) {
-        poly.gridXPoints = [];
-        poly.gridYPoints = [];
-        poly.lines = [];
+        poly.gridXPoints = {};
+        poly.gridYPoints = {};
+        poly.lines = {};
         this.poly = poly;
       }
 
