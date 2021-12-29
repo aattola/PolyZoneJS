@@ -16,6 +16,7 @@
 // const Poly = require('./PolyZone');
 import Poly from './PolyZone';
 import PolyZone from './PolyZone';
+import BoxZone from './BoxZone';
 // //
 // const zone = new PolyZone({
 //   points: [
@@ -70,24 +71,18 @@ import PolyZone from './PolyZone';
 //   console.log(isCurrInside);
 // }, 500);
 
-// console.log(zone, 'Online');
-
-// export { PolyZone, BoxZone };
-
-// module.exports = { kissa: true, Polye: { orava: true, Poly } };
-
-// export default { Poly, kissa: 'orava' };
-
 // @ts-ignore
 // eslint-disable-next-line dot-notation
-globalThis['polyjs'] = { dumbazz: true, Poly: Poly.bind(globalThis) };
+const createExport = global['exports'];
 
-// @ts-ignore
-// eslint-disable-next-line dot-notation
-global['exports']('createPoly', (options) => {
+createExport('createPoly', (options: any) => {
   const zone = new PolyZone(options).create();
 
   return {
     zoneId: 123, // todo: id
   };
 });
+
+// @ts-ignore
+// eslint-disable-next-line dot-notation
+global['PolyJS'] = { PolyZone, BoxZone };

@@ -294,13 +294,12 @@ class PolyZone {
   }
 
   private initDebug(poly: any, options: any) {
-    console.log('Debug init');
     if (options.debugBlip) {
       // todo: add blip thing
     }
 
     const debugEnabled = options.debugPoly || options.debugGrid;
-    // if (!debugEnabled) return;
+    if (!debugEnabled) return;
 
     // todo: debug
 
