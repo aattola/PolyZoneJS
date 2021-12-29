@@ -33,7 +33,7 @@ const server = {
         extensions: [".ts", ".js"],
     },
     output: {
-        filename: "[contenthash].server.js",
+        filename: "server.js",
         path: path.resolve(buildPath, "server"),
     },
     target: "node",
@@ -61,14 +61,18 @@ const client = {
         }),
     ],
     optimization: {
-        minimize: false,
+        minimize: true,
     },
     resolve: {
         extensions: [".ts", ".js"],
     },
     output: {
-        filename: "[contenthash].client.js",
+        filename: "client.js",
         path: path.resolve(buildPath, "client"),
+        // library: {
+        //     name: "PolyJS",
+        //     type: "commonjs"
+        // }
     },
 };
 

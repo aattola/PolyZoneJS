@@ -9,9 +9,13 @@
 //     --maxZ = 31.080629348755
 // })
 
-import * as Cfx from 'fivem-js';
-import BoxZone from './BoxZone';
+// import * as Cfx from 'fivem-js';
+// import BoxZone from './BoxZone';
 // import PolyZone from './PolyZone';
+
+// const Poly = require('./PolyZone');
+import Poly from './PolyZone';
+import PolyZone from './PolyZone';
 // //
 // const zone = new PolyZone({
 //   points: [
@@ -25,7 +29,7 @@ import BoxZone from './BoxZone';
 //     debugPoly: true,
 //     debugGrid: true,
 //     gridDivisions: 30,
-//     min
+//
 //   },
 // });
 
@@ -41,21 +45,21 @@ import BoxZone from './BoxZone';
 // --debugPoly=true
 // })
 //
-
-const box = new BoxZone({
-  box: {
-    x: -293.41, y: -981.58, z: 31.08, l: 3, w: 1,
-  },
-  options: {
-    name: 'kissatesti',
-    heading: 0,
-    debugPoly: true,
-    minZ: 150,
-    maxZ: 300,
-  },
-}).create();
-
-console.log(box, 'boxi');
+//
+// const box = new BoxZone({
+//   box: {
+//     x: -293.41, y: -981.58, z: 31.08, l: 3, w: 1,
+//   },
+//   options: {
+//     name: 'test',
+//     heading: 0,
+//     debugPoly: true,
+//     minZ: 150,
+//     maxZ: 300,
+//   },
+// }).create();
+//
+// console.log(box, 'boxi');
 
 // setInterval(() => {
 //   const pos = Cfx.Game.PlayerPed.Position;
@@ -67,3 +71,23 @@ console.log(box, 'boxi');
 // }, 500);
 
 // console.log(zone, 'Online');
+
+// export { PolyZone, BoxZone };
+
+// module.exports = { kissa: true, Polye: { orava: true, Poly } };
+
+// export default { Poly, kissa: 'orava' };
+
+// @ts-ignore
+// eslint-disable-next-line dot-notation
+globalThis['polyjs'] = { dumbazz: true, Poly: Poly.bind(globalThis) };
+
+// @ts-ignore
+// eslint-disable-next-line dot-notation
+global['exports']('createPoly', (options) => {
+  const zone = new PolyZone(options).create();
+
+  return {
+    zoneId: 123, // todo: id
+  };
+});

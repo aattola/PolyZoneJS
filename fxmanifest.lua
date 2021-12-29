@@ -1,17 +1,11 @@
 fx_version 'cerulean'
-
 game 'gta5'
 
 name 'PolyZoneJS'
+author 'JEFFe'
+description 'PolyZone but for javascript'
+version '0.1.0'
 
---files {
---  'ui/dist/index.html',
---  'ui/dist/*',
---  'ui/dist/**/*',
---  'ui/dist/**/**/*',
---}
-
---ui_page 'ui/dist/index.html'
-
-client_script 'app/build/client/*.client.js'
-server_script 'app/build/server/*.server.js'
+client_script 'app/build/client/client.js'
+server_script 'app/build/server/server.js'
+you_are 'cool'

@@ -198,4 +198,5 @@ dist
 
 lua
 app/build
+build/
 

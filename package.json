@@ -2,7 +2,7 @@
   "name": "@app/app",
   "version": "1.0.0",
   "scripts": {
-    "build": "cd app && webpack --mode development --color --progress",
+    "build": "cd app && webpack --mode production --color --progress",
     "watch": "cd app && webpack --mode development --watch"
   },
   "peerDependencies": {
